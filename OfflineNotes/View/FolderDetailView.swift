@@ -22,16 +22,17 @@ struct FolderDetailView: View {
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
             let itemSize = calculateItemSize(for: screenWidth)
+            let columns = calculateColumns(for: screenWidth)
 
             ScrollView {
-                LazyVGrid(columns: gridColumns(for: screenWidth), spacing: 16) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: columns), spacing: 16) {
                     ForEach(viewModel.files) { file in
                         VStack(spacing: 10) {
                             if let imageData = file.content, let uiImage = UIImage(data: imageData) {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: itemSize, height: itemSize)
+                                    .frame(width: itemSize * 0.9, height: itemSize * 0.8)
                                     .cornerRadius(8)
                                     .clipped()
                             } else {
@@ -40,7 +41,7 @@ struct FolderDetailView: View {
                                     fileName: file.name ?? "Untitled",
                                     fileType: file.type ?? "unknown"
                                 )
-                                .frame(width: itemSize, height: itemSize)
+                                .frame(width: itemSize * 0.9, height: itemSize * 0.8)
                             }
 
                             Text(file.name ?? "Untitled")
@@ -48,6 +49,7 @@ struct FolderDetailView: View {
                                 .lineLimit(2)
                                 .multilineTextAlignment(.center)
                                 .frame(width: itemSize)
+                                .truncationMode(.tail)
                             
                             Spacer()
                         }
@@ -91,15 +93,16 @@ struct FolderDetailView: View {
         }
     }
 
+    // Helper to calculate item size
     private func calculateItemSize(for width: CGFloat) -> CGFloat {
-        let columnCount = isPortrait ? 3 : 5
+        let columnCount = calculateColumns(for: width)
         let spacing: CGFloat = 16 * CGFloat(columnCount - 1)
         return (width - spacing) / CGFloat(columnCount)
     }
 
-    private func gridColumns(for width: CGFloat) -> [GridItem] {
-        let columnCount = isPortrait ? 3 : 5
-        return Array(repeating: GridItem(.flexible(), spacing: 16), count: columnCount)
+    // Helper to calculate number of columns dynamically
+    private func calculateColumns(for width: CGFloat) -> Int {
+        return isPortrait ? (UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3) : max( (UIDevice.current.userInterfaceIdiom == .pad ? 6 : 4), Int(width / 150)) // At least 4 in landscape, dynamically adjust for screen size
     }
 
     private func updateOrientation(geometry: GeometryProxy) {

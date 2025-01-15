@@ -46,14 +46,16 @@ struct FolderListView: View {
                                             .renderingMode(.template)
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: itemSize, height: itemSize)
+                                            .frame(width: itemSize * 0.9, height: itemSize * 0.8)
                                             .foregroundColor(Color(hex: folder.color ?? "#FFFFFF"))
                                         
                                         Text(folder.name ?? "")
                                             .foregroundColor(.black)
-                                            .font(.headline)
+                                            .font(UIDevice.current.userInterfaceIdiom == .pad ? .title3 : .subheadline)
+                                            .fontWeight(.regular)
                                             .lineLimit(1)
                                             .multilineTextAlignment(.center)
+                                            .truncationMode(.tail)
                                         
                                         let formattedDate = "\(folder.creationDate ?? Date())".formattedDate(
                                             from: "yyyy-MM-dd HH:mm:ss Z",
@@ -167,7 +169,7 @@ struct FolderListView: View {
 
     // Helper to calculate number of columns dynamically
     private func calculateColumns(for width: CGFloat) -> Int {
-        return isPortrait ? 3 : max(4, Int(width / 150)) // At least 4 in landscape, dynamically adjust for screen size
+        return isPortrait ? (UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3) : max( (UIDevice.current.userInterfaceIdiom == .pad ? 6 : 4), Int(width / 150)) // At least 4 in landscape, dynamically adjust for screen size
     }
 
     // Detect orientation

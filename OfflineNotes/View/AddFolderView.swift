@@ -22,6 +22,7 @@ struct AddFolderView: View {
                     HStack {
                         TextField("Enter folder name", text: $folderName)
                         ColorPicker("", selection: $folderColor)
+                            .frame(width: 30)
                     }
                 }
             }
