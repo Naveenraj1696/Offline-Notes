@@ -38,18 +38,18 @@ The app follows the MVVM (Model-View-ViewModel) design pattern for better separa
 Open the app on your device or simulator.
 ### Creating a Folder: 
 Tap the menu icon (...) in the top-right corner of the navigation bar. Select "New Folder" from the dropdown menu. Provide a name and optionally choose a color for the folder. Tap "Save" to create the folder. It will appear in the list.
-### Adding Files/Photos to a Folder
-Tap on the folder you want to open.
-Inside the folder, tap the "Add" button.
-Select files or photos to upload to this folder.
 ### Marking Folders as Favorites
 Long press (or use the context menu) on a folder to open the actions menu. Select "Favourite" from the menu to mark it as a favorite. A star icon will indicate the folder is now a favorite.
 ### Editing a Folder
 Long press (or use the context menu) on a folder.
 Select "Edit" to modify the folder name or color.
-Tap "Save" to update the changes.
+Tap "Update" to update the changes.
 ### Sorting Folders
 Tap the menu icon (...) in the top-right corner of the navigation bar. Select "Name" or "Creation Date" to sort folders accordingly. The folders list will update to reflect the selected sorting option.
+### Adding Files/Photos to a Folder
+Tap on the folder you want to open.
+Inside the folder, tap the "+" button.
+Select files or photos to upload to this folder.
 ### Using the App in Landscape or Portrait Mode
 Rotate your device to switch between portrait and landscape mode.
 The app adjusts dynamically to provide an optimal layout for your screen size.
